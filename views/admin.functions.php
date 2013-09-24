@@ -1229,8 +1229,3 @@ function sailthru_verify_template($tpl) {
 	return $errors;
 
 }
-
-
-
-?>
-
