@@ -318,12 +318,15 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 
 		}
 
+
 		// did this request come from an ajax call?
 		if ( !empty ( $_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 			$result = json_encode($result);
 			echo $result;
+			exit();
 		} else {
 			echo $result['message'];
+			exit();
 		}
 
 	}	// end add_subscriber()
