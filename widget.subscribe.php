@@ -291,11 +291,14 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 			'email'	=> $email,
 			'options' => $options
 		);
+
 		if ( empty($result['error'] ) ) {
 
 			$sailthru = get_option('sailthru_setup_options');
 			$api_key = $sailthru['sailthru_api_key'];
 			$api_secret = $sailthru['sailthru_api_secret'];
+			$result['error'] = false;
+
 
 			//$client = new Sailthru_Client( $api_key, $api_secret );
 			$client = new WP_Sailthru_Client( $api_key, $api_secret);
@@ -305,10 +308,8 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 					}
 				}
 				catch (Sailthru_Client_Exception $e) {
-					//silently fail
 					$result['error'] = true;
 					$result['message'] = "There was an error subscribing you, please try again later.";
-					return $result;
 				}
 
 			if ( $res['ok'] != true ) {
