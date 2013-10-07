@@ -207,10 +207,10 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 
 	function add_subscriber() {
 
-		if ( !wp_verify_nonce( $_POST['sailthru_nonce'], "add_subscriber_nonce" ) ) {
-			$result['error'] = true;
-			$result['message'] = "No naughty business please";
-		}
+		// if ( !wp_verify_nonce( $_POST['sailthru_nonce'], "add_subscriber_nonce" ) ) {
+		// 	$result['error'] = true;
+		// 	$result['message'] = "No naughty business please";
+		// }
 
 
 		$email = trim( $_POST['email'] );
