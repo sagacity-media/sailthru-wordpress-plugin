@@ -135,7 +135,7 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 
 
 		$html = '<script type="text/javascript">';
-			$html .= 'var ajaxurl = "'.home_url('wp-admin/admin-ajax.php').'"';
+			$html .= 'var ajaxurl = "'.home_url('wp-admin/admin-ajax.php', 'https').'"';
 		$html .= '</script>';
 
 		echo $html;
@@ -306,6 +306,8 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 				}
 				catch (Sailthru_Client_Exception $e) {
 					//silently fail
+					$result['error'] = true;
+					$result['message'] = "There was an error subscribing you, please try again later.";
 					return;
 				}
 
