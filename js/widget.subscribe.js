@@ -11,13 +11,20 @@
 				ajaxurl,
 				user_input,
 				function(data) {
-					data = jQuery.parseJSON(data);
-					if( data.error == true ) {
-						$("#sailthru-add-subscriber-errors").html(data.message);
-					} else {
+					// temporary issues fix for sailthru.com
+					if (data == '') {
 						$("#sailthru-add-subscriber-form").html('');
 						$("#success").show();
+					} else {
+						data = jQuery.parseJSON(data);
+						if( data.error == true) {
+							$("#sailthru-add-subscriber-errors").html(data.message);
+						} else {
+							$("#sailthru-add-subscriber-form").html('');
+							$("#success").show();
+						}
 					}
+
 
 				}
 			);

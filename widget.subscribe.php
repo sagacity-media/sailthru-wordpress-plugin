@@ -133,9 +133,9 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 	 */
 	public function add_ajax_library() {
 
-
+		$protocol = is_ssl() ? 'https' : 'http';
 		$html = '<script type="text/javascript">';
-			$html .= 'var ajaxurl = "'.home_url('wp-admin/admin-ajax.php', 'https').'"';
+		$html .= 'var ajaxurl = "'.home_url('wp-admin/admin-ajax.php', $protocol).'"';
 		$html .= '</script>';
 
 		echo $html;
