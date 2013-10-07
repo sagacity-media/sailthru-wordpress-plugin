@@ -308,7 +308,7 @@ class Sailthru_Subscribe_Widget extends WP_Widget {
 					//silently fail
 					$result['error'] = true;
 					$result['message'] = "There was an error subscribing you, please try again later.";
-					return;
+					return $result;
 				}
 
 			if ( $res['ok'] != true ) {
