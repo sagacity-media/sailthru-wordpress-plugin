@@ -48,9 +48,9 @@ if ( !defined( 'SAILTHRU_PLUGIN_URL' ) ) {
  * Sailthru PHP5 Developer Library
  * Source: http://getstarted.sailthru.com/developers/client-libraries/set-config-file/php5
  */
-require_once SAILTHRU_PLUGIN_PATH . 'lib/Sailthru_Util.php';
-require_once SAILTHRU_PLUGIN_PATH . 'lib/Sailthru_Client.php';
-require_once SAILTHRU_PLUGIN_PATH . 'lib/Sailthru_Client_Exception.php';
+require_once SAILTHRU_PLUGIN_PATH . 'lib/sailthru/sailthru/Sailthru_Util.php';
+require_once SAILTHRU_PLUGIN_PATH . 'lib/sailthru/sailthru/Sailthru_Client.php';
+require_once SAILTHRU_PLUGIN_PATH . 'lib/sailthru/sailthru/Sailthru_Client_Exception.php';
 require_once SAILTHRU_PLUGIN_PATH . 'classes/class-wp-sailthru-client.php';
 
 /*

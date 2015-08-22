@@ -19,9 +19,10 @@ class WP_Sailthru_Client extends Sailthru_Client {
      * @param string $url
      * @param array $data
      * @param string $method
+     * @param array $options
      * @return string
      */
-    function httpRequestCurl($url, array $data, $method = 'POST') {
+    function httpRequestCurl($url, array $data, $method = 'POST', $options = array()) {
 
         if ( 'GET' == $method ) {
             $url_with_params = $url;

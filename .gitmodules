@@ -1,0 +1,3 @@
+[submodule "lib/sailthru"]
+	path = lib/sailthru
+	url = https://github.com/sailthru/sailthru-php5-client.git
