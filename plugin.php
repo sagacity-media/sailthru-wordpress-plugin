@@ -329,3 +329,106 @@ if ( get_option( 'sailthru_override_wp_mail' )
 	}
 
 }
+
+
+/**
+ * Capture the saving of a post and make a Content API call to add
+ * the page details and tags to Sailthru's Horizon API for recommendations
+ *
+ * @param integer $post_id
+ */
+
+function sailthru_save_post( $post_id, $post, $post_before ) {
+
+
+	// Check to see if Content API is disabled
+	if( false === apply_filters( 'sailthru_content_api_enable', true ) ) {
+		return;
+	}
+
+
+	if ( $post->post_status == 'publish' ) {
+
+		// Make sure Salthru is setup
+		if ( get_option( 'sailthru_setup_complete' ) ) {
+
+			$sailthru = get_option( 'sailthru_setup_options' );
+			$api_key = $sailthru['sailthru_api_key'];
+			$api_secret = $sailthru['sailthru_api_secret'];
+
+			$client = new WP_Sailthru_Client( $api_key, $api_secret );
+
+			try {
+				if ( $client ) {
+
+					// Prepare the Content API Params
+					$data['url'] = get_permalink( $post->ID );
+					$data['title'] = $post->post_title;
+					$data['author'] = $post->post_author;
+					$data['date'] = $post->post_date;
+					$data['vars']['post_type'] = $post->post_type;
+					$data['spider'] = 1;
+
+					if ( !empty( $post->post_excerpt ) ) {
+						$data['description'] = $post->post_excerpt;
+					} else {
+						$data['description'] = wp_trim_words( $post->post_content, 250, '' );
+					}
+
+					// image & thumbnail
+					if ( has_post_thumbnail( $post->ID ) ) {
+						$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+						$thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'concierge-thumb' );
+
+						$post_image = $image[0];
+						$data['images']['full'] = esc_attr( $post_image );
+						$post_thumbnail = $thumb[0];
+						$data['images']['thumb']  = $post_thumbnail;
+					}
+
+					$post_tags = get_post_meta( $post->ID, 'sailthru_meta_tags', true );
+
+					// wordpress tags
+					if ( empty( $post_tags ) ) {
+						$post_tags = get_the_tags();
+						if ( $post_tags ) {
+							$post_tags = esc_attr( implode( ', ', wp_list_pluck( $post_tags, 'name' ) ) );
+						}
+					}
+
+					// wordpress categories
+					if ( empty( $post_tags ) ) {
+						$post_categories = get_the_category( $post->ID );
+						foreach ( $post_categories as $post_category ) {
+							$post_tags .= $post_category->name . ', ';
+						}
+						$post_tags = substr( $post_tags, 0, -2 );
+					}
+
+					if ( ! empty( $post_tags ) ) {
+						$data['tags'] = $post_tags;
+					}
+
+					$post_expiration = get_post_meta( $post->ID, 'sailthru_post_expiration', true );
+
+					if ( ! empty( $post_expiration ) ) {
+						$data['expire_date'] = esc_attr( $post_expiration );
+					}
+
+					// Make the API call to Sailthru
+					$api = $client->apiPost( 'content', $data );
+
+				}
+
+			} catch ( Sailthru_Client_Exception $e ) {
+				//silently fail
+				return;
+			}
+
+		}
+
+	}
+
+}
+
+add_action( 'save_post', 'sailthru_save_post', 10, 3 );
