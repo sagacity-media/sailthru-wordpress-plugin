@@ -366,7 +366,7 @@
                 <input type="hidden" name="vars[source]" value="<?php bloginfo( 'url' ); ?>" />
 
                 <span class="input-group-btn">
-                    <button class="btn btn-reverse" type="submit">
+                    <button id="submit" class="btn btn-reverse" type="submit">
                         Submit
                     </button>
                 </span>
