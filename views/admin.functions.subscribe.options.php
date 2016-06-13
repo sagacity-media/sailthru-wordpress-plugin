@@ -276,12 +276,12 @@ function sailthru_initialize_forms_options() {
 		$options       = get_option( $collection );
 
 		echo '<div class="sailthru_keypair_fields"  id="sailthru_value_fields_block">';
-		echo '<input class="selection" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name ) . '][0][value]" type="text" placeholder="display " />';
-		echo '<input class="selection" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name ) . '][0][label]" type="text"  placeholder="value"/>';
-		echo '<input id="value_amount" type="hidden" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name .'_val' ) . ']" value="0" />';
-		//echo '<input class="selection" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name .'2' ) . ']" type="text" placeholder="display " />';
-		//echo '<input class="selection" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name.'1' ) . ']" type="text"  placeholder="value"/>';
-		//echo '<input id="value_amount" type="hidden" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name .'_val' ) . ']" value="1" />';
+		// echo '<input class="selection" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name ) . '][0][value]" type="text" placeholder="display " />';
+		// echo '<input class="selection" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name ) . '][0][label]" type="text"  placeholder="value"/>';
+		// echo '<input id="value_amount" type="hidden" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name .'_val' ) . ']" value="0" />';
+		echo '<input class="selection" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name . '1' ) . ']" type="text" placeholder="display" />';
+		echo '<input class="selection" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name . '2' ) . ']" type="text"  placeholder="value"/>';
+		echo '<input id="value_amount" type="hidden" name="' . esc_attr( $collection ) . '[' . esc_attr( $option_name .'_val' ) . ']" value="1" />';
 		echo '</div>';
 		echo '</div>';
 		echo '<div class="instructions">';
